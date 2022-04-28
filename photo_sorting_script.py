@@ -6,7 +6,7 @@ from PIL.ExifTags import TAGS
 
 # pip install --upgrade Pillow
 # Successfully installed Pillow-9.1.0
-TARGET_PATCH = r'D:\Семен Фото'
+TARGET_PATCH = r'D:\'
 file_extension = ['jpg', 'gif', 'bmp', 'png']
 EXIT_PATCH = r'C:\Users\Root\PycharmProjects\foto_razbor'
 
