@@ -74,3 +74,14 @@ def list_file_dir(target_patch):
 os.mkdir(os.sep.join([EXIT_PATCH, 'Video']))
 list_file_dir(TARGET_PATCH)
 
+#from hachoir.parser import createParser
+#from hachoir.metadata import extractMetadata
+#from hachoir.core import config as HachoirConfig
+
+#HachoirConfig.quiet = True
+# pip install hachoir
+#def creation_date(filename):
+    #parser = createParser(filename)
+    #metadata = extractMetadata(parser)
+    #return metadata.get('creation_date')
+#print(creation_date())
