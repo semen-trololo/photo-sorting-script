@@ -3,11 +3,10 @@ from hachoir.metadata import extractMetadata
 from hachoir.core import config as HachoirConfig
 import os
 import shutil
+import sys
 import random
 
 
-target_patch = r'test'
-check_patch = r''
 file_extension_foto = ['jpg', 'gif', 'bmp', 'png']
 file_extension_video = ['mp4', 'avi']
 calendar = {
@@ -27,6 +26,13 @@ calendar = {
 
 HachoirConfig.quiet = True
 # pip install hachoir
+
+def creat_target_patch(target_patch):
+    if os.path.isdir(target_patch):
+        return None
+    else:
+        print('[*] Create folder', target_patch)
+        os.mkdir(target_patch)
 
 
 def crate_patch(data_time):
@@ -89,7 +95,10 @@ def copy_tmp_file(patch, name):
 def creation_date(filename):
     parser = createParser(filename)
     metadata = extractMetadata(parser)
-    return metadata.get('creation_date')
+    data_time = metadata.get('creation_date')
+    del parser
+    del metadata
+    return data_time
 
 
 def list_file_dir(target_patch):
@@ -101,11 +110,20 @@ def list_file_dir(target_patch):
             elif name.split('.')[1] in file_extension_video:
                 copy_file_video(os.sep.join([target_patch, name]), name)
             else:
-                print('[*] unknown expansion', name)
+                print('[!] unknown expansion', name)
                 copy_tmp_file(os.sep.join([target_patch, name]), name)
         else:
             print(f'[*] Go to dir --> {name}')
             list_file_dir(os.sep.join([target_patch, name]))
 
 
-list_file_dir(check_patch)
+try:
+    check_patch = sys.argv[1]
+    target_patch = sys.argv[2]
+    if os.path.isdir(check_patch):
+        creat_target_patch(target_patch)
+        list_file_dir(check_patch)
+    else:
+        print('[?] Incorrect folder path')
+except:
+    print('[!] Error argument')
