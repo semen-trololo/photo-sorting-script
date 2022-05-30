@@ -6,6 +6,7 @@ import shutil
 from tkinter import *
 import tkinter.filedialog as fd
 from tkinter import scrolledtext
+# pip install hachoir
 global check_patch
 global target_patch
 
@@ -27,7 +28,7 @@ calendar = {
 }
 
 HachoirConfig.quiet = True
-# pip install hachoir
+
 
 def choose_directory():
     directory = fd.askdirectory(title="Открыть папку", initialdir="/")
@@ -36,22 +37,27 @@ def choose_directory():
         global check_patch
         check_patch = directory
 
+
 def choose_directory_2():
     directory = fd.askdirectory(title="Открыть папку", initialdir="/")
     if directory:
         lbl_2.config(text=directory)
         global target_patch
         target_patch = directory
+
+
 def start():
+    btn["state"] = "disabled"
+    btn_2["state"] = "disabled"
+    btn_3["state"] = "disabled"
+    txt.insert(INSERT, f'[!] START....\n')
+    window.update()
     list_file_dir(check_patch)
     txt.insert(INSERT, f'[!] FINISH, OK....')
+    btn["state"] = "normal"
+    btn_2["state"] = "normal"
+    btn_3["state"] = "normal"
     window.update()
-def creat_target_patch(target_patch):
-    if os.path.isdir(target_patch):
-        return None
-    else:
-        print('[*] Create folder', target_patch)
-        os.mkdir(target_patch)
 
 
 def crate_patch(data_time):
@@ -138,28 +144,16 @@ def list_file_dir(target_patch):
                 print('[!] unknown expansion', name)
                 copy_tmp_file(os.sep.join([target_patch, name]), name)
         else:
-            txt.insert(INSERT, f'[*] Go to dir --> {name} \n')
-            window.update()
+            #txt.insert(INSERT, f'[*] Go to dir --> {name} \n')
+            #window.update()
             print(f'[*] Go to dir --> {name}')
             list_file_dir(os.sep.join([target_patch, name]))
 
 
-#try:
- #   check_patch = sys.argv[1]
- #   target_patch = sys.argv[2]
- #   if os.path.isdir(check_patch):
- #       creat_target_patch(target_patch)
-#        list_file_dir(check_patch)
-#    else:
- #       print('[?] Incorrect folder path')
-#except:
- #   print('[!] Error argument')
-global check_patch
-global target_patch
 window = Tk()
 window.title("Foto Sort")
 window.geometry('600x400')
-lbl = Label(window, text="Источник фотографий")
+lbl = Label(window, text="Папка фотографий")
 lbl.grid(column=0, row=0)
 btn = Button(window, text="Выбрать папку", command=choose_directory)
 btn.grid(column=2, row=0)
@@ -167,8 +161,8 @@ lbl_2 = Label(window, text="Место назначения")
 lbl_2.grid(column=0, row=1)
 btn_2 = Button(window, text="Выбрать папку", command=choose_directory_2)
 btn_2.grid(column=2, row=1)
-btn_2 = Button(window, text="Старт", command=start)
-btn_2.grid(column=2, row=2)
+btn_3 = Button(window, text="СТАРТ", command=start)
+btn_3.grid(column=2, row=2)
 txt = scrolledtext.ScrolledText(window, width=40, height=10)
 txt.grid(column=1, row=3)
 window.mainloop()
