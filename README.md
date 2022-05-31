@@ -1,5 +1,5 @@
 # photo-sorting-script
-photo sorting script
+The script for sorting photos by shooting date.
 
  pip install hachoir
 # Example
