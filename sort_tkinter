@@ -10,8 +10,8 @@ from tkinter import scrolledtext
 global check_patch
 global target_patch
 
-file_extension_foto = ['jpg', 'gif', 'bmp', 'png']
-file_extension_video = ['mp4', 'avi']
+file_extension_foto = ['jpg', 'gif', 'bmp', 'png', 'JPG', 'GIF', 'BMP', 'PNG', 'TIFF', 'tiff', 'TIF', 'tif']
+file_extension_video = ['mp4', 'avi', 'MP4', 'AVI', 'MKV', 'mkv']
 calendar = {
     '1': 'January',
     '2': 'February',
@@ -47,6 +47,7 @@ def choose_directory_2():
 
 
 def start():
+    txt.delete(1.0, END)
     btn["state"] = "disabled"
     btn_2["state"] = "disabled"
     btn_3["state"] = "disabled"
@@ -152,17 +153,18 @@ def list_file_dir(target_patch):
 
 window = Tk()
 window.title("Foto Sort")
-window.geometry('600x400')
+window.geometry('750x500')
 lbl = Label(window, text="Папка фотографий")
 lbl.grid(column=0, row=0)
 btn = Button(window, text="Выбрать папку", command=choose_directory)
-btn.grid(column=2, row=0)
+btn.grid(column=1, row=0)
 lbl_2 = Label(window, text="Место назначения")
 lbl_2.grid(column=0, row=1)
 btn_2 = Button(window, text="Выбрать папку", command=choose_directory_2)
-btn_2.grid(column=2, row=1)
+btn_2.grid(column=1, row=1)
 btn_3 = Button(window, text="СТАРТ", command=start)
-btn_3.grid(column=2, row=2)
-txt = scrolledtext.ScrolledText(window, width=40, height=10)
-txt.grid(column=1, row=3)
+btn_3.grid(column=1, row=3)
+txt = scrolledtext.ScrolledText(window, width=60, height=20)
+txt.grid(column=1, row=2)
 window.mainloop()
+
